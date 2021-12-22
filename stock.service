@@ -1,0 +1,17 @@
+[Unit]
+Description=The stock server
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+PIDFile=/run/stock.pid
+ExecStartPre=/usr/bin/rm -f /run/stock.pid
+ExecStart=/usr/local/stock/bin/stock
+KillSignal=SIGQUIT
+TimeoutStopSec=5
+KillMode=process
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
